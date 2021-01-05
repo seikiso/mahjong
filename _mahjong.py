@@ -1,8 +1,7 @@
 import random
 
+from mahjong.hand_calculating.hand import HandCalculator
 from mahjong.tile import TilesConverter
-
-from mahjong_lib import calculator, print_hand_result
 
 
 class Taku:
@@ -74,7 +73,6 @@ class Janshi:
         win_tile = ''
         if 'm' in hai:
             _hai = hai.replace('m', '')
-            # アガリ牌(ソーズの5)
             win_tile = TilesConverter.string_to_136_array(man=_hai)[0]
 
         if 'p' in hai:
@@ -99,12 +97,12 @@ class Janshi:
         config = None
 
         # 計算
+        calculator = HandCalculator()
         result = calculator.estimate_hand_value(tiles, win_tile, melds, dora_indicators, config)
         if result.error is None:
             print(result)
             print(result.yaku)
             print(result.cost)
-        # print_hand_result(result)
 
     def tsumo(self, yama):
         hai = yama[0]
@@ -115,8 +113,6 @@ class Janshi:
         return hai
 
     def dahai(self):
-        # TODO ユーザーが打牌選択をできるようにする
-        # 現状は、右端を切るだけのロジック（萬子の染め手）
         dahai = input()
         hai = self.tehai[int(dahai)]
         del self.tehai[int(dahai)]
