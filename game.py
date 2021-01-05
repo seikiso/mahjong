@@ -17,11 +17,11 @@ janshi1.riipai()
 print(janshi1.tehai)
 print('')
 
-for i in range(18):
+for i in range(50):
     print('%s順目　手牌' % (i + 1))
     tsumohai = janshi1.tsumo(yama)
-    print(janshi1.tehai)
     print('自摸' + tsumohai)
+    print(janshi1.tehai)
     dahai = janshi1.dahai()
     janshi1.riipai()
     print('打' + dahai)

@@ -50,7 +50,7 @@ class Janshi:
     def get_zihai_from_tehai(self):
         return [s for s in self.tehai if 'z' in s]
 
-    def check_houra(self,hai):
+    def check_houra(self, hai):
         _manzu = ''
         for m in self.get_manzu_from_tehai():
             _manzu += m.replace('m', '')
@@ -67,12 +67,50 @@ class Janshi:
         for z in self.get_zihai_from_tehai():
             _zihai += z.replace('z', '')
 
+        # アガリ形(man=マンズ, pin=ピンズ, sou=ソーズ, honors=字牌)
+        tiles = TilesConverter.string_to_136_array(man=_manzu, pin=_pinzu, sou=_souzu, honors=_zihai)
+
+        _hai = ''
+        win_tile = ''
+        if 'm' in hai:
+            _hai = hai.replace('m', '')
+            # アガリ牌(ソーズの5)
+            win_tile = TilesConverter.string_to_136_array(man=_hai)[0]
+
+        if 'p' in hai:
+            _hai = hai.replace('p', '')
+            win_tile = TilesConverter.string_to_136_array(pin=_hai)[0]
+
+        if 's' in hai:
+            _hai = hai.replace('s', '')
+            win_tile = TilesConverter.string_to_136_array(sou=_hai)[0]
+
+        if 'z' in hai:
+            _hai = hai.replace('z', '')
+            win_tile = TilesConverter.string_to_136_array(honors=_hai)[0]
+
+        # 鳴き(なし)
+        melds = None
+
+        # ドラ(なし)
+        dora_indicators = None
+
+        # オプション(なし)
+        config = None
+
+        # 計算
+        result = calculator.estimate_hand_value(tiles, win_tile, melds, dora_indicators, config)
+        if result.error is None:
+            print(result)
+            print(result.yaku)
+            print(result.cost)
+        # print_hand_result(result)
 
     def tsumo(self, yama):
         hai = yama[0]
         del yama[0]
         self.tehai.append(hai)
-        # self.check_houra(hai)
+        self.check_houra(hai)
 
         return hai
 

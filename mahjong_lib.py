@@ -44,4 +44,7 @@ config = None
 
 # 計算
 result = calculator.estimate_hand_value(tiles, win_tile, melds, dora_indicators, config)
-print_hand_result(result)
+print(result.error)
+print(result.yaku)
+print(result.cost)
+# print_hand_result(result)
