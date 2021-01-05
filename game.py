@@ -1,12 +1,12 @@
-import mahjong
+import _mahjong
 
-taku = mahjong.Taku()
+taku = _mahjong.Taku()
 yama = taku.yama
 print("山　最初")
 print(yama)
 print('')
 
-janshi1 = mahjong.Janshi()
+janshi1 = _mahjong.Janshi()
 janshi1.get_haipai(yama)
 print('手牌')
 print(janshi1.tehai)
@@ -22,8 +22,8 @@ for i in range(18):
     tsumohai = janshi1.tsumo(yama)
     print(janshi1.tehai)
     print('自摸' + tsumohai)
-    janshi1.riipai()
     dahai = janshi1.dahai()
+    janshi1.riipai()
     print('打' + dahai)
     print(janshi1.tehai)
     print('')

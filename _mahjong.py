@@ -1,5 +1,9 @@
 import random
 
+from mahjong.tile import TilesConverter
+
+from mahjong_lib import calculator, print_hand_result
+
 
 class Taku:
     def __init__(self):
@@ -34,18 +38,50 @@ class Janshi:
         zihai = [s for s in self.tehai if 'z' in s]
         self.tehai = manzu + pinzu + souzu + zihai
 
+    def get_manzu_from_tehai(self):
+        return [s for s in self.tehai if 'm' in s]
+
+    def get_pinzu_from_tehai(self):
+        return [s for s in self.tehai if 'p' in s]
+
+    def get_souzu_from_tehai(self):
+        return [s for s in self.tehai if 's' in s]
+
+    def get_zihai_from_tehai(self):
+        return [s for s in self.tehai if 'z' in s]
+
+    def check_houra(self,hai):
+        _manzu = ''
+        for m in self.get_manzu_from_tehai():
+            _manzu += m.replace('m', '')
+
+        _pinzu = ''
+        for p in self.get_pinzu_from_tehai():
+            _pinzu += p.replace('p', '')
+
+        _souzu = ''
+        for s in self.get_souzu_from_tehai():
+            _souzu += s.replace('s', '')
+
+        _zihai = ''
+        for z in self.get_zihai_from_tehai():
+            _zihai += z.replace('z', '')
+
+
     def tsumo(self, yama):
         hai = yama[0]
         del yama[0]
         self.tehai.append(hai)
+        # self.check_houra(hai)
 
         return hai
 
     def dahai(self):
         # TODO ユーザーが打牌選択をできるようにする
         # 現状は、右端を切るだけのロジック（萬子の染め手）
-        hai = self.tehai[13]
-        del self.tehai[13]
+        dahai = input()
+        hai = self.tehai[int(dahai)]
+        del self.tehai[int(dahai)]
         self.sutehai.append(hai)
 
         return hai
